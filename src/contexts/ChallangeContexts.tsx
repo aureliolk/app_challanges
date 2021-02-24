@@ -28,7 +28,7 @@ export const ChallangeContexts = createContext({} as ChallangeContextsList)
 export function ChallangeContextsProvider({ children }: ChangellesProviderProprs) {
 
     const [level, setLevel] = useState(1)
-    const [currentExp, setCurrentExp] = useState(30)
+    const [currentExp, setCurrentExp] = useState(1)
     const [challangesComplete, setChallangesComplete] = useState(0)
     const [activeChallanges, setChangeChallanges] = useState(null)
     const changellesExp = Math.pow((level + 1)*4,2) 

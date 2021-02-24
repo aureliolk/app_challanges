@@ -10,7 +10,7 @@ export function CountDown() {
     const  {startNewChallanges} = useContext(ChallangeContexts)
     const [active, setActive] = useState(false)
     const [hasFinished, sethasFinished] = useState(false)
-    const [time, setTime] = useState(25 * 60)
+    const [time, setTime] = useState(0.1 * 60)
     const minute = Math.floor(time / 60)
     const seconds = time % 60
 
