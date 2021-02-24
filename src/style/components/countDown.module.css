@@ -41,8 +41,37 @@
     border-radius: 5px;
     margin-top: 1rem;
     font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
 }
 
-.buttonCoutdown:hover {
-    background: var(--blue);
+.buttonCoutdown object {
+    width: 35px;
+    margin-left: 20px;
+}
+
+.buttonCoutdown:not(:disabled):hover {
+    background: var(--green-dark);
+}
+
+.buttonCoutdownActive {
+    background: var(--red);
+    color: var(--white);
+}
+
+.buttonCoutdownActive img {
+    fill: var(--white);
+}
+
+.buttonCoutdownActive:not(:disabled):hover {
+    background: var(--red);
+}
+
+.buttonCoutdown:disabled {
+    background: var(--title);
+    border-bottom: 5px solid var(--green);
+    color: var(--white);
+    cursor: not-allowed;
 }

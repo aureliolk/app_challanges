@@ -1,17 +1,26 @@
+import { useContext } from 'react';
+import { ChallangeContexts } from '../contexts/ChallangeContexts';
 import style from '../style/components/exp.module.css'
 
 
 export function ExperienceBar() {
+    const {currentExp, changellesExp} = useContext(ChallangeContexts)
+    const porcentExp = Math.round(currentExp * 100) / changellesExp
+
 
     return (
 
         <div className={style.experienceBar}>
             <span>0 xp</span>
             <div>
-                <div style={{ width: '50%' }} />
-                <span className={style.userExperience} style={{ left: '50%' }}>{'50%'}</span>
+                <div style={{ width: `${porcentExp}%` }} />
+                
+                <span className={style.userExperience} style={{ left: `${porcentExp}%` }}>{currentExp}</span>
+            
+                {console.log(currentExp, changellesExp, porcentExp )
+                }
             </div>
-            <span>100 xp</span>
+            <span>{changellesExp} xp</span>
         </div>
 
     );

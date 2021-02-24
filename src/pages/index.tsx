@@ -7,6 +7,7 @@ import { CompleteChangelles } from '../comp/compleChallenges';
 import { CountDown } from '../comp/countDown';
 
 import style from '../style/pages/home.module.css'
+import { ChangellesBox } from '../comp/ChangellesBox';
 
 
 export default function Home() {
@@ -24,7 +25,7 @@ export default function Home() {
             <CountDown />
           </div>
           <div>
-
+            <ChangellesBox />
           </div>
         </section>
       </div>

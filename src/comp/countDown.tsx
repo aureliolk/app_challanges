@@ -1,11 +1,15 @@
-import { Console } from 'console'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
+import { ChallangeContexts } from '../contexts/ChallangeContexts'
 import style from '../style/components/countDown.module.css'
 
+let timeCountDown: NodeJS.Timeout
+
+
 export function CountDown() {
-
+    
+    const  {startNewChallanges} = useContext(ChallangeContexts)
     const [active, setActive] = useState(false)
-
+    const [hasFinished, sethasFinished] = useState(false)
     const [time, setTime] = useState(25 * 60)
     const minute = Math.floor(time / 60)
     const seconds = time % 60
@@ -13,29 +17,28 @@ export function CountDown() {
     const [minuteRight, miunteLeft] = String(minute).padStart(2, '0').split('');
     const [secondRight, secondLeft] = String(seconds).padStart(2, '0').split('');
 
-    const [nameButton, setNameButton] = useState(null)
-    
+
     function startCountDown() {
-        if(active != true){
-            setActive(true)
-        }else{
-            setActive(false)
-        }
+        setActive(true)
     }
 
+    function resetCountDown() {
+        clearTimeout(timeCountDown)
+        setActive(false)
+        setTime(0.1 * 60)
+    }
 
     useEffect(() => {
-        if(active && time > 0){
-            setTimeout(() => {
+        if (active && time > 0) {
+            timeCountDown = setTimeout(() => {
                 setTime(time - 1)
             }, 1000);
+        } else if (time == 0) {
+            setActive(false)
+            sethasFinished(true)
+            startNewChallanges()
         }
 
-        if(active){
-            setNameButton('PARAR')
-        }else{
-            setNameButton('INICIAR')
-        }
 
     }, [active, time])
 
@@ -52,7 +55,31 @@ export function CountDown() {
                     <span>{secondLeft}</span>
                 </div>
             </div>
-            <button type='button' onClick={startCountDown} className={style.buttonCoutdown}>{nameButton}</button>
+            {hasFinished ? (
+                <button
+                    disabled
+                    className={style.buttonCoutdown}>
+                    <span>Ciclo Finalizado</span> <object type="image/svg+xml" data="icons/renewable.svg"></object>
+                </button>
+                
+            ) : (
+                    <>
+                        {active ? (
+                            <button type='button'
+                                onClick={resetCountDown}
+                                className={`${style.buttonCoutdown} ${style.buttonCoutdownActive}`}>
+                                <span>Abandonar Ciclo</span><object type="image/svg+xml" data="icons/close-cross-symbol-in-a-circle.svg"></object>
+                            </button>
+                        ) : (
+                                <button type='button'
+                                    onClick={startCountDown}
+                                    className={style.buttonCoutdown}>
+                                    <span>Iniciar Ciclo</span><object type="image/svg+xml" data="icons/running-man.svg"></object>
+                                </button>
+                            )}
+
+                    </>
+                )}
         </>
     )
 }
