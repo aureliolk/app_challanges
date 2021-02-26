@@ -17,8 +17,6 @@ export function ExperienceBar() {
                 
                 <span className={style.userExperience} style={{ left: `${porcentExp}%` }}>{currentExp}</span>
             
-                {console.log(currentExp, changellesExp, porcentExp )
-                }
             </div>
             <span>{changellesExp} xp</span>
         </div>

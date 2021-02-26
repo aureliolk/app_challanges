@@ -1,10 +1,22 @@
 import { useContext } from 'react';
 import { ChallangeContexts } from '../contexts/ChallangeContexts';
+import { CountDownContexts } from '../contexts/CountDownContexts';
 import style from '../style/components/ChangellesBox.module.css'
 
 export function ChangellesBox() {
-    const {activeChallanges, resetChallanges} = useContext(ChallangeContexts)
-    
+    const {activeChallanges, resetChallanges, completeChallanges} = useContext(ChallangeContexts)
+    const {resetCountDown} = useContext(CountDownContexts)
+
+    function fail(){
+        resetChallanges()
+        resetCountDown()
+    }
+
+    function sucess(){
+        completeChallanges()
+        resetCountDown()
+    }
+
     return (
         <div className={style.ChangellesBoxContainer}>
             {activeChallanges ? (
@@ -18,12 +30,14 @@ export function ChangellesBox() {
                     <footer>
                         <button 
                         type='button'
-                        onClick={resetChallanges}
+                        onClick={fail}
                         className={style.buttonFailed}>
                             Falhei
                         </button>
                         <button 
                         type='button'
+                        onClick={sucess}
+
                         className={style.buttonFinished}>
                             Completei
                         </button>
